@@ -11,3 +11,15 @@
 *.lai
 *.la
 *.a
+
+# mishmash
+*~
+*.png
+*.csv
+*.gz
+
+# OpenFOAM wmake Files
+*.dep
+lnInclude/
+linux64GccDPOpt/
+linux64GccDPDebug/

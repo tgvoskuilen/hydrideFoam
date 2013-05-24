@@ -1,0 +1,106 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      changeDictionaryDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dictionaryReplacement
+{
+    boundary
+    {
+        top
+        {
+            type            patch;
+        }
+    }
+
+    T
+    {
+        internalField   uniform 300;
+
+        boundaryField
+        {
+            ".*"
+            {
+                type            zeroGradient;
+            }
+
+            top
+            {
+                type            zeroGradient;
+                value           uniform 300;
+            }
+
+            "hydride_to_htx"
+            {
+                type            compressible::turbulentThermalContactResistance;
+                neighbourFieldName T;
+                K               lookup; //basicThermo;
+                KName           keff; //none;
+                value           uniform 300;
+                Rtc             Rtc [-1 0 3 1 0 0 0] 0.002;
+            }
+        }
+    }
+
+    F
+    {
+        internalField   uniform 0;
+
+        boundaryField
+        {
+            ".*"
+            {
+                type            zeroGradient;
+            }
+
+            top
+            {
+                type            zeroGradient;
+            }
+
+            "hydride_to_.*"
+            {
+                type            zeroGradient;
+            }
+        }
+    }
+
+
+    p
+    {
+        internalField   uniform 1e5;
+
+        boundaryField
+        {
+            ".*"
+            {
+                type            zeroGradient;
+            }
+
+            top
+            {
+                type            totalPressure;
+                p0              uniform 1e5;
+                U               U;
+                phi             phi;
+                rho             rho;
+                psi             none;
+                gamma           1;
+                value           uniform 1e5;
+            }
+        }
+    }
+}
+
+// ************************************************************************* //

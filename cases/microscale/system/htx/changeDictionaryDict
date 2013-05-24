@@ -1,0 +1,60 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      changeDictionaryDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dictionaryReplacement
+{
+    T
+    {
+        internalField   uniform 373;
+
+        boundaryField
+        {
+            "insulated"
+            {
+                type            zeroGradient;
+                value           uniform 373;
+            }
+            
+            "coldplate"
+            {
+                type            externalWallHeatFluxTemperature;
+                K               solidThermo;
+                KName           none;
+                h               uniform 600;
+                Ta              uniform 325;
+                value           uniform 373;
+            }
+            
+            "outerWall"
+            {
+                type            fixedValue;
+                value           uniform 373;
+            }
+
+            "htx_to_hydride"
+            {
+                type            compressible::turbulentThermalContactResistance;
+                neighbourFieldName Tfluid;
+                K               solidThermo;
+                KName           none;
+                value           uniform 373;
+                Rtc             Rtc [-1 0 3 1 0 0 0] 0.008;
+            }
+        }
+    }
+}
+
+// ************************************************************************* //

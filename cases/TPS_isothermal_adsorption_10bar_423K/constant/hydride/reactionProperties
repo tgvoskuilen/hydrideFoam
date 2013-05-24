@@ -1,0 +1,42 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      reactionProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+//Hydride reaction properties
+
+// Reaction rate given by k0*exp(-Ea/T)
+
+// k0  (1/s)
+k0   1e10;
+
+// Ea (J/mol)
+Ea   130000;
+
+// dH (J/mol) and dS (J/mol-K)
+dH  -75000;
+dS  -135.6;
+
+// Maximum wtpct H2
+wtpct  0.06;
+
+//Effect on metal specific heat
+Ncp   0;
+
+// Gas molar mass (kg/kmol)
+W  2.016;
+
+
+// ************************************************************************* //

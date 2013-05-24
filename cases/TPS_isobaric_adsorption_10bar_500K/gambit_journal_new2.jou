@@ -1,0 +1,53 @@
+/ Journal File for GAMBIT 2.4.6, Database 2.4.4, lnamd64 SP2007051420
+/ Identifier "default_id"
+/ File opened for write Wed Feb 16 08:26:39 2011.
+solver select "Generic"
+vertex create coordinates 0 0 0
+vertex create coordinates 0.031115 0 0
+vertex create coordinates 0 0.031115 0
+
+vertex create coordinates 0.014986 0.008001 0
+vertex create coordinates 0.014986 -0.008001 0
+vertex create coordinates -0.014986 0.008001 0
+vertex create coordinates -0.014986 -0.008001 0
+
+
+edge create straight "vertex.4" "vertex.5" "vertex.7" "vertex.6" "vertex.4"
+edge create fillet "edge.1" "edge.2" parameters 0.5 0.5 radius 0.00635 trim
+edge create fillet "edge.2" "edge.3" parameters 0.5 0.5 radius 0.00635 trim
+edge create fillet "edge.3" "edge.4" parameters 0.1 0.5 radius 0.00635 trim
+edge create fillet "edge.1" "edge.4" parameters 0.9 0.5 radius 0.00635 trim
+
+
+face create center2points "vertex.1" "vertex.2" "vertex.3" circle
+face create wireframe "edge.1" "edge.2" "edge.3" "edge.4" "edge.5" "edge.6" "edge.7" "edge.8" real
+
+face subtract "face.1" faces "face.2" keeptool
+
+edge mesh "edge.1" "edge.2" "edge.3" "edge.4" "edge.5" "edge.6" "edge.7" "edge.8" successive ratio1 1 size 0.0005
+edge link "edge.1" "edge.22" directions 0 0 periodic
+edge link "edge.2" "edge.18" directions 0 0 periodic
+edge link "edge.3" "edge.21" directions 0 0 periodic
+edge link "edge.4" "edge.25" directions 0 0 periodic
+edge link "edge.5" "edge.20" directions 0 0 periodic
+edge link "edge.6" "edge.19" directions 0 0 periodic
+edge link "edge.7" "edge.23" directions 0 0 periodic
+edge link "edge.8" "edge.24" directions 0 0 periodic
+
+
+edge mesh "edge.9" successive ratio1 1 size 0.002
+
+face mesh "face.2" pave
+face mesh "face.1" triangle
+
+volume create translate "face.1" "face.2" vector 0 0 0.036068
+volume mesh "volume.2" intervals 40
+volume mesh "volume.1" intervals 40
+
+physics create "Exterior" btype "ELEMENT_SIDE" face "face.1" "face.2" "face.8" "face.12" "face.21"
+
+physics create "Interior1A" btype "ELEMENT_SIDE" face "face.3" "face.4" "face.5" "face.6" "face.7" "face.9" "face.10" "face.11"
+physics create "Interior1B" btype "ELEMENT_SIDE" face "face.13" "face.14" "face.15" "face.16" "face.17" "face.18" "face.19" "face.20"
+
+export gambit "mesh.neu"
+

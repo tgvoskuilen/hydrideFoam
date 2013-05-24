@@ -1,0 +1,80 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+
+
+    // Hydride
+    {
+        name    hydride;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box (0.056642 0.059182 0.0127) (0.09906 0.1016 0.508);
+        }
+    }
+    
+    {
+        name    hydride;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set hydride;           // name of cellSet
+        }
+    }
+
+
+    // htx
+    {
+        name    htx;
+        type    cellZoneSet;
+        action  clear;
+    }
+    {
+        name    htx;
+        type    cellSet;
+        action  add;
+        source  cellToCell;
+        sourceInfo
+        {
+            set hydride;
+        }
+    }
+    {
+        name    htx;
+        type    cellSet;
+        action  invert;
+    }
+    {
+        name    htx;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set htx;
+        }
+    }
+
+);
+
+// ************************************************************************* //

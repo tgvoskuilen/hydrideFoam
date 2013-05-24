@@ -1,0 +1,48 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      changeDictionaryDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dictionaryReplacement
+{
+    T
+    {
+        internalField   uniform 300;
+
+        boundaryField
+        {
+            ".*"
+            {
+                type            externalWallHeatFluxTemperature;
+                K               solidThermo;
+                KName           none;
+                h               uniform 500;
+                Ta              uniform 500;
+                value           uniform 500;
+            }
+
+            "htx_to_hydride"
+            {
+                type            compressible::turbulentThermalContactResistance;
+                neighbourFieldName Tfluid;
+                K               solidThermo;
+                KName           none;
+                value           uniform 300;
+                Rtc             Rtc [-1 0 3 1 0 0 0] 0.002;
+            }
+        }
+    }
+}
+
+// ************************************************************************* //

@@ -1,0 +1,56 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant/hydride";
+    object      thermophysicalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+thermoType      hPsiThermo<pureMixture<constTransport<specieThermo<hConstThermo<perfectGas>>>>>;
+
+mixture
+{
+    //Constant properties for H2 at 300 K
+    specie
+    {
+        nMoles          1;
+        molWeight       2.016;
+    }
+    thermodynamics
+    {
+        Cp              14310;
+        Hf              0;
+    }
+    transport
+    {
+        mu              8.96e-6;
+        Pr              0.701;
+    }
+}
+
+// Bed porosity
+porosity   0.74;
+
+// Bed solid density (kg/m3)
+rhoSolid    1800;
+
+// Bed solid specific heat (J/kg-K)
+CpSolid     1025;
+
+// Bed conductivity (W/m-K)
+keff        0.5;
+
+// Bed Darcy permeability (m^2)
+kd          2e-11;
+
+
+// ************************************************************************* //
