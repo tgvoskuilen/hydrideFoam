@@ -41,8 +41,8 @@ do
 done
 
 # Run
-#runParallel `getApplication` 4
-#mpirun -np 4 hydrideBedFoam -parallel
+#runParallel `getApplication` 16
+#mpirun -np 16 hydrideBedFoam -parallel
 foamJob -screen -parallel hydrideBedFoam
 
 # Reconstruct

@@ -38,7 +38,7 @@ mixture
 }
 
 // Bed porosity
-porosity   0.80;
+porosity   0.72;
 
 // Bed solid density (kg/m3)
 rhoSolid    1740;

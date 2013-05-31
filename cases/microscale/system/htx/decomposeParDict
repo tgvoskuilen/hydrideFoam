@@ -17,7 +17,7 @@ FoamFile
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-numberOfSubdomains  4;
+numberOfSubdomains  16;
 
 //- Keep owner and neighbour on same processor for faces in zones:
 //preserveFaceZones (htx_to_hydride hydride_to_htx);

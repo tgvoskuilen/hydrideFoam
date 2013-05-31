@@ -35,8 +35,8 @@ divSchemes
     div(phi,R)      Gauss upwind;
     div(R)          Gauss linear;
     div((muEff*dev2(T(grad(U))))) Gauss linear;
-    div((interpolate((rho*Cp))*(interpolate(U)&S)),T) Gauss upwind;
-    div((interpolate((rho*Cp))*(interpolate(U)&S)),Tfluid) Gauss upwind;
+    div(((interpolate((rho*Cp))*(interpolate(U)&S))*porosity),T) Gauss upwind;
+    div(((interpolate((rho*Cp))*(interpolate(U)&S))*porosity),Tfluid) Gauss upwind;
 }
 
 laplacianSchemes
